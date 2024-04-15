@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+  <id>VirtoCommerce.BuilderIo</id>
+  <version>3.800.0</version>
+  <version-tag></version-tag>
+
+  <platformVersion>3.813.0</platformVersion>
+  <dependencies>
+      <dependency id="VirtoCommerce.Core" version="3.800.0" />
+  </dependencies>
+
+  <title>Builder.io module</title>
+  <description>BuilderIo module</description>
+
+  <authors>
+    <author>Oleg Zhuk</author>
+  </authors>
+  <owners>
+    <owner>VirtoCommerce</owner>
+  </owners>
+
+  <projectUrl>https://github.com/VirtoCommerce/vc-module-builder-io</projectUrl>
+  <iconUrl>Modules/$(VirtoCommerce.BuilderIo)/Content/logo.png</iconUrl>
+  <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+  <assemblyFile>VirtoCommerce.BuilderIo.Web.dll</assemblyFile>
+  <moduleType>VirtoCommerce.BuilderIo.Web.Module, VirtoCommerce.BuilderIo.Web</moduleType>
+
+  <releaseNotes>First version.</releaseNotes>
+  <copyright>Copyright © 2024 VirtoCommerce. All rights reserved</copyright>
+  <tags>extension module</tags>
+  <useFullTypeNameInSwagger>false</useFullTypeNameInSwagger>
+</module>
