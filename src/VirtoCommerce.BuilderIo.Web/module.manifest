@@ -10,7 +10,7 @@
   </dependencies>
 
   <title>Builder.io module</title>
-  <description>BuilderIo module</description>
+  <description>Integration module for BuilderIo</description>
 
   <authors>
     <author>Oleg Zhuk</author>
