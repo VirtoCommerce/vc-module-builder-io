@@ -26,12 +26,12 @@ public class Module : IModule, IHasConfiguration
         var settingsRegistrar = serviceProvider.GetRequiredService<ISettingsRegistrar>();
         settingsRegistrar.RegisterSettings(ModuleConstants.Settings.AllSettings, ModuleInfo.Id);
 
+        //Register store level settings
+        settingsRegistrar.RegisterSettingsForType(ModuleConstants.Settings.StoreLevelSettings, nameof(Store));
+
         // Register permissions
         var permissionsRegistrar = serviceProvider.GetRequiredService<IPermissionsRegistrar>();
         permissionsRegistrar.RegisterPermissions(ModuleInfo.Id, "BuilderIO", ModuleConstants.Security.Permissions.AllPermissions);
-
-        //Register store level settings
-        settingsRegistrar.RegisterSettingsForType(ModuleConstants.Settings.StoreLevelSettings, nameof(Store));
     }
 
     public void Uninstall()
