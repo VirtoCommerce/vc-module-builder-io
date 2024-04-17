@@ -13,12 +13,12 @@ on:
 
 jobs:
   test:
-    uses: VirtoCommerce/.github/.github/workflows/test-and-sonar.yml@v3.800.4
+    uses: VirtoCommerce/.github/.github/workflows/test-and-sonar.yml@VCST-571
     secrets:
       sonarToken: ${{ secrets.SONAR_TOKEN }}
 
   build:
-    uses: VirtoCommerce/.github/.github/workflows/build.yml@v3.800.4
+    uses: VirtoCommerce/.github/.github/workflows/build.yml@VCST-571
     with:
       uploadPackage: 'true'
       uploadDocker: 'false'
@@ -41,12 +41,12 @@ jobs:
 
     - name: Get Changelog
       id: changelog
-      uses: VirtoCommerce/vc-github-actions/changelog-generator@master
+      uses: VirtoCommerce/vc-github-actions/changelog-generator@VCST-571
 
   publish-github-release:
     needs:
       [build, test, get-metadata]
-    uses: VirtoCommerce/.github/.github/workflows/publish-github.yml@v3.800.4
+    uses: VirtoCommerce/.github/.github/workflows/publish-github.yml@VCST-571
     with:
       fullKey: ${{ needs.build.outputs.packageFullKey }}
       changeLog: '${{ needs.get-metadata.outputs.changeLog }}'
@@ -66,10 +66,10 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install VirtoCommerce.GlobalTool
-      uses: VirtoCommerce/vc-github-actions/setup-vcbuild@master
+      uses: VirtoCommerce/vc-github-actions/setup-vcbuild@VCST-571
 
     - name: Setup Git Credentials
-      uses: VirtoCommerce/vc-github-actions/setup-git-credentials-github@master
+      uses: VirtoCommerce/vc-github-actions/setup-git-credentials-github@VCST-571
       with:
         githubToken: ${{ secrets.REPO_TOKEN }}
 

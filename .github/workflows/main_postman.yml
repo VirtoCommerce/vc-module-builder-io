@@ -33,10 +33,10 @@ jobs:
       run: npm install newman-reporter-testrail --global
 
     - name: Install VirtoCommerce.GlobalTool
-      uses: VirtoCommerce/vc-github-actions/setup-vcbuild@master
+      uses: VirtoCommerce/vc-github-actions/setup-vcbuild@VCST-571
 
     - name: Get Image Version
-      uses: VirtoCommerce/vc-github-actions/get-image-version@master
+      uses: VirtoCommerce/vc-github-actions/get-image-version@VCST-571
       id: image
 
     # Temporary commented for speedup workflow test
@@ -54,7 +54,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Docker Env
-      uses: VirtoCommerce/vc-github-actions/docker-env@master
+      uses: VirtoCommerce/vc-github-actions/docker-env@VCST-571
       with:
         githubUser: ${{ env.GITHUB_ACTOR }}
         githubToken: ${{ env.GITHUB_TOKEN }}
@@ -71,7 +71,7 @@ jobs:
       run: git clone https://github.com/VirtoCommerce/vc-quality-gate-katalon.git --branch dev
 
     - name: Katalon Studio Github Action
-      uses: VirtoCommerce/vc-github-actions/katalon-studio-github-action@master
+      uses: VirtoCommerce/vc-github-actions/katalon-studio-github-action@VCST-571
       with:
         version: '8.0.5'
         projectPath: '${{ github.workspace }}/vc-quality-gate-katalon/platform_storefront.prj'
