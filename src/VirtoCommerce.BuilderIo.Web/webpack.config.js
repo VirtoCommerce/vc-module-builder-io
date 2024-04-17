@@ -1,4 +1,4 @@
-const namespace = 'VirtoCommerce.BuilderIo'
+const namespace = 'VirtoCommerce.BuilderIO'
 
 const glob = require('glob');
 const path = require('path');

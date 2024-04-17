@@ -1,6 +1,6 @@
 {
   "settings": {
-    "BuilderIo": {
+    "BuilderIO": {
       "Enable": {
         "title": "Enable",
         "description": "Activating Builder.io for the Store"

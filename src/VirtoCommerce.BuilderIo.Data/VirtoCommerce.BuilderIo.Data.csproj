@@ -11,6 +11,6 @@
     <PackageReference Include="VirtoCommerce.StoreModule.Core" Version="3.800.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtoCommerce.BuilderIo.Core\VirtoCommerce.BuilderIo.Core.csproj" />
+    <ProjectReference Include="..\VirtoCommerce.BuilderIO.Core\VirtoCommerce.BuilderIO.Core.csproj" />
   </ItemGroup>
 </Project>

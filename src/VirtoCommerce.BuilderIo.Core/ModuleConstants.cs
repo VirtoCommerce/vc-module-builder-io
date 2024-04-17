@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using VirtoCommerce.Platform.Core.Settings;
 
-namespace VirtoCommerce.BuilderIo.Core;
+namespace VirtoCommerce.BuilderIO.Core;
 
 public static class ModuleConstants
 {
@@ -9,7 +9,7 @@ public static class ModuleConstants
     {
         public static class Permissions
         {
-            public const string Access = "BuilderIo:access";
+            public const string Access = "builderio:access";
 
             public static string[] AllPermissions { get; } =
             {
@@ -24,8 +24,8 @@ public static class ModuleConstants
         {
             public static SettingDescriptor Enable { get; } = new()
             {
-                Name = "BuilderIo.Enable",
-                GroupName = "BuilderIo|General",
+                Name = "BuilderIO.Enable",
+                GroupName = "BuilderIO|General",
                 ValueType = SettingValueType.Boolean,
                 IsPublic = true,
                 DefaultValue = false,
@@ -33,8 +33,8 @@ public static class ModuleConstants
 
             public static SettingDescriptor PublicApiKey { get; } = new()
             {
-                Name = "BuilderIo.PublicApiKey",
-                GroupName = "BuilderIo|Advanced",
+                Name = "BuilderIO.PublicApiKey",
+                GroupName = "BuilderIO|Advanced",
                 ValueType = SettingValueType.ShortText,
                 IsPublic = true,
                 DefaultValue = string.Empty,

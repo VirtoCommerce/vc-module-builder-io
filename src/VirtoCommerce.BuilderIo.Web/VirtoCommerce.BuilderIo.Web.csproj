@@ -8,7 +8,7 @@
     <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtoCommerce.BuilderIo.Core\VirtoCommerce.BuilderIo.Core.csproj" />
-    <ProjectReference Include="..\VirtoCommerce.BuilderIo.Data\VirtoCommerce.BuilderIo.Data.csproj" />
+    <ProjectReference Include="..\VirtoCommerce.BuilderIO.Core\VirtoCommerce.BuilderIO.Core.csproj" />
+    <ProjectReference Include="..\VirtoCommerce.BuilderIO.Data\VirtoCommerce.BuilderIO.Data.csproj" />
   </ItemGroup>
 </Project>

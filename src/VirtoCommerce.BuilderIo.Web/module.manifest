@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module>
-  <id>VirtoCommerce.BuilderIo</id>
+  <id>VirtoCommerce.BuilderIO</id>
   <version>3.800.0</version>
   <version-tag></version-tag>
 
@@ -9,8 +9,17 @@
       <dependency id="VirtoCommerce.Core" version="3.800.0" />
   </dependencies>
 
-  <title>Builder.io module</title>
-  <description>Integration module for BuilderIo</description>
+  <title>Builder.io</title>
+  <description>Integration module for Builder.io</description>
+
+  <apps>
+    <app id="builderio">
+      <title>Builder.io</title>
+      <description>Builder.io Dashboard</description>
+      <iconUrl>/apps/builderio/logo.png</iconUrl>
+      <permission>builderio:access</permission>
+    </app>
+  </apps>
 
   <authors>
     <author>Oleg Zhuk</author>
@@ -20,11 +29,11 @@
   </owners>
 
   <projectUrl>https://github.com/VirtoCommerce/vc-module-builder-io</projectUrl>
-  <iconUrl>Modules/$(VirtoCommerce.BuilderIo)/Content/logo.png</iconUrl>
+  <iconUrl>Modules/$(VirtoCommerce.BuilderIO)/Content/logo.png</iconUrl>
   <requireLicenseAcceptance>false</requireLicenseAcceptance>
 
-  <assemblyFile>VirtoCommerce.BuilderIo.Web.dll</assemblyFile>
-  <moduleType>VirtoCommerce.BuilderIo.Web.Module, VirtoCommerce.BuilderIo.Web</moduleType>
+  <assemblyFile>VirtoCommerce.BuilderIO.Web.dll</assemblyFile>
+  <moduleType>VirtoCommerce.BuilderIO.Web.Module, VirtoCommerce.BuilderIO.Web</moduleType>
 
   <releaseNotes>First version.</releaseNotes>
   <copyright>Copyright © 2024 VirtoCommerce. All rights reserved</copyright>

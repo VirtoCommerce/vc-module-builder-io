@@ -1,21 +1,24 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VirtoCommerce.BuilderIO.Core;
 
-namespace VirtoCommerce.BuilderIo.Web.Controllers.Api
+namespace VirtoCommerce.BuilderIO.Web.Controllers.Api;
+
+[Route("api/builder-io")]
+public class BuilderIOController : Controller
 {
-    [Route("api/builder-io")]
-    public class BuilderIoController : Controller
+    const string BuilderIOSiteRedirectUrl = "https://builder.io/content";
+
+    public BuilderIOController()
     {
-        // GET: api/builder-io
-        /// <summary>
-        /// Get message
-        /// </summary>
-        /// <remarks>Return "Hello world!" message</remarks>
-        //[HttpGet]
-        //[Route("")]
-        //[Authorize(ModuleConstants.Security.Permissions.Access)]
-        //public ActionResult<string> Get()
-        //{
-        //    return Ok(new { result = "Hello world!" });
-        //}
     }
+
+    [HttpGet]
+    [Route("redirect")]
+    [Authorize(ModuleConstants.Security.Permissions.Access)]
+    public ActionResult Redirect()
+    {
+        return Redirect(BuilderIOSiteRedirectUrl);
+    }
+
 }

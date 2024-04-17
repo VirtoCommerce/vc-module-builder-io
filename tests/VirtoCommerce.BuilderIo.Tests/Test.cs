@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace VirtoCommerce.BuilderIo.Tests;
+namespace VirtoCommerce.BuilderIO.Tests;
 
 [Trait("Category", "Unit")]
 public class Test

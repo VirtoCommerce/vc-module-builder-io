@@ -17,8 +17,8 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\VirtoCommerce.BuilderIo.Core\VirtoCommerce.BuilderIo.Core.csproj" />
-    <ProjectReference Include="..\..\src\VirtoCommerce.BuilderIo.Data\VirtoCommerce.BuilderIo.Data.csproj" />
-    <ProjectReference Include="..\..\src\VirtoCommerce.BuilderIo.Web\VirtoCommerce.BuilderIo.Web.csproj" />
+    <ProjectReference Include="..\..\src\VirtoCommerce.BuilderIO.Core\VirtoCommerce.BuilderIO.Core.csproj" />
+    <ProjectReference Include="..\..\src\VirtoCommerce.BuilderIO.Data\VirtoCommerce.BuilderIO.Data.csproj" />
+    <ProjectReference Include="..\..\src\VirtoCommerce.BuilderIO.Web\VirtoCommerce.BuilderIO.Web.csproj" />
   </ItemGroup>
 </Project>
