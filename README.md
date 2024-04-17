@@ -10,13 +10,11 @@ and marketers the toolkit to transform page designs into optimized web and mobil
 1. Application menu.
 
 ## Screenshots
-TODO:
+![image](https://github.com/VirtoCommerce/vc-module-builder-io/assets/7639413/a93494be-1514-4189-91ea-f930f583aa9b)
 
 ## Setup
 1. [Create and сonfigure Builder.io account](https://www.builder.io/)
 1. Go to a Store Settings, select Settings and activate Builder.io and enter your Public API Key.
-
-TODO:
 
 ## Integration with Virto Storefront
 Virto Storefront and Vue B2B Theme has native integration with Builder.io module. 
@@ -26,7 +24,8 @@ Once you click Save for Store Settings, the Builder.io tracking will be activate
 ## Application Menu 
 The module adds `Builder.io` link into Application menu. It redirects to Builder.io dashboard. 
 
-TODO:
+![image](https://github.com/VirtoCommerce/vc-module-builder-io/assets/7639413/88565cf4-bcfc-451a-a555-301e98e73d2c)
+
 
 ## References
 * [Builder.io](https://www.builder.io)
