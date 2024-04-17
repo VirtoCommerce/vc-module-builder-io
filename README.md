@@ -12,6 +12,8 @@ and marketers the toolkit to transform page designs into optimized web and mobil
 ## Screenshots
 ![image](https://github.com/VirtoCommerce/vc-module-builder-io/assets/7639413/a93494be-1514-4189-91ea-f930f583aa9b)
 
+![image](https://github.com/VirtoCommerce/vc-module-builder-io/assets/7639413/c642e205-6884-414d-9de1-9f42084aeb30)
+
 ## Setup
 1. [Create and сonfigure Builder.io account](https://www.builder.io/)
 1. Go to a Store Settings, select Settings and activate Builder.io and enter your Public API Key.
