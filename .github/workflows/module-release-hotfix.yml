@@ -1,5 +1,5 @@
-# v3.800.4
-# https://virtocommerce.atlassian.net/browse/VCST-488
+# VCST-571
+# https://virtocommerce.atlassian.net/browse/VCST-571
 name: Release hotfix
 
 on:
@@ -41,7 +41,7 @@ jobs:
 
     - name: Get Changelog
       id: changelog
-      uses: VirtoCommerce/vc-github-actions/changelog-generator@VCST-571
+      uses: VirtoCommerce/vc-github-actions/changelog-generator@master
 
   publish-github-release:
     needs:
@@ -66,10 +66,10 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install VirtoCommerce.GlobalTool
-      uses: VirtoCommerce/vc-github-actions/setup-vcbuild@VCST-571
+      uses: VirtoCommerce/vc-github-actions/setup-vcbuild@master
 
     - name: Setup Git Credentials
-      uses: VirtoCommerce/vc-github-actions/setup-git-credentials-github@VCST-571
+      uses: VirtoCommerce/vc-github-actions/setup-git-credentials-github@master
       with:
         githubToken: ${{ secrets.REPO_TOKEN }}
 
