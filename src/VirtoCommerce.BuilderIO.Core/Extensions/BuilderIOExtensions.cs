@@ -23,19 +23,19 @@ public static class BuilderIOExtensions
         };
     }
 
-    public static PageDocument FromBuilderIOPage(this BuilderIOPage value, string storeId, string cultureName, PageOperation operation = PageOperation.Unknown)
+    public static PageDocument FromBuilderIOPage(this BuilderIOPage value, string storeId, string cultureName,
+        PageOperation operation = PageOperation.Unknown)
     {
         return new PageDocument
         {
-            Content = value.Data?.GetValueOrDefault("blocksString")?.ToString(),
+            Content = value.GetDataProperty("blocksString"),
             CreatedBy = value.CreatedBy,
             CreatedDate = value.CreatedDate,
             Id = value.Id,
             OuterId = value.Id,
-            Permalink = value.Query
-                ?.FirstOrDefault(x => x.Property == "urlPath" && x.Operator == "is")?.Value,
+            Permalink = value.GetQueryProperty("urlPath"),
             Title = value.Data?.GetValueOrDefault("title")?.ToString(),
-            Description = value.Data?.GetValueOrDefault("description")?.ToString(),
+            Description = value.GetDataProperty("description").ToString(),
             Status = operation.GetPageDocumentStatus(),
             MimeType = "application/json",
             ModifiedBy = value.LastUpdatedBy,
@@ -48,6 +48,17 @@ public static class BuilderIOExtensions
             EndDate = value.EndDate == DateTime.MinValue ? DateTime.MaxValue : value.EndDate,
             // UserGroups = 
         };
+    }
+
+    private static string GetDataProperty(this BuilderIOPage page, string propertyName)
+    {
+        return page.Data?.GetValueOrDefault(propertyName)?.ToString();
+    }
+
+    private static string GetQueryProperty(this BuilderIOPage page, string propertyName, string operatorName = "is")
+    {
+        return page.Query
+            ?.FirstOrDefault(x => x.Property == propertyName && x.Operator == operatorName)?.Value;
     }
 
     public static PageDocumentStatus GetPageDocumentStatus(this PageOperation operation)
