@@ -9,10 +9,6 @@ public class BuilderIOController : Controller
 {
     const string BuilderIOSiteRedirectUrl = "https://builder.io/content";
 
-    public BuilderIOController()
-    {
-    }
-
     [HttpGet]
     [Route("redirect")]
     [Authorize(ModuleConstants.Security.Permissions.Access)]
