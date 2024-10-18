@@ -10,11 +10,17 @@ public static class ModuleConstants
         public static class Permissions
         {
             public const string Access = "builderio:access";
+            public const string Read = "builderio:read";
+            public const string Update = "builderio:update";
+            public const string Delete = "builderio:delete";
 
             public static string[] AllPermissions { get; } =
-            {
+            [
                 Access,
-            };
+                Read,
+                Update,
+                Delete
+            ];
         }
     }
 

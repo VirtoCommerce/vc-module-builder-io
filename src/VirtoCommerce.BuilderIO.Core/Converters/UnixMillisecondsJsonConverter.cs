@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace VirtoCommerce.BuilderIO.Core.Converters;
 
-public class UnixMillisecondsConverter : JsonConverter
+public class UnixMillisecondsJsonConverter : JsonConverter
 {
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {

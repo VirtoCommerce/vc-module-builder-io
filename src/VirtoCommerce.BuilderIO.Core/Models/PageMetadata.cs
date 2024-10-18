@@ -1,9 +1,9 @@
-namespace VirtoCommerce.BuilderIO.Core.Models
+namespace VirtoCommerce.BuilderIO.Core.Models;
+
+public class PageMetadata
 {
-    public class PageMetadata
-    {
-        public bool HasLinks { get; set; }
-        public string Kind { get; set; }
-        public string LastPreviewUrl { get; set; }
-    }
+    public bool HasLinks { get; set; }
+    public string Kind { get; set; }
+    public string LastPreviewUrl { get; set; }
 }
+
