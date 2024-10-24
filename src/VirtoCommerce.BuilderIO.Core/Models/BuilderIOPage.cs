@@ -47,6 +47,10 @@ public class BuilderIOPage
         pageDocument.Id = Id;
         pageDocument.OuterId = Id;
         pageDocument.Permalink = GetQueryProperty("urlPath");
+        pageDocument.UserGroups = GetQueryProperty("groupName")
+            ?.Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Select(x => x.Trim())
+            .ToArray();
         pageDocument.Title = GetDataProperty("title");
         pageDocument.Description = GetDataProperty("description");
         pageDocument.MimeType = "application/json";
