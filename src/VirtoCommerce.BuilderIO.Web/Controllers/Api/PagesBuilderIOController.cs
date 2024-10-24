@@ -19,7 +19,6 @@ public class PagesBuilderIOController(IEventPublisher eventPublisher) : Controll
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] BuilderIOPageChanges model, [FromHeader] string storeId, [FromHeader] string cultureName)
     {
-        // todo: permissions
         if (model?.ModelName == "page")
         {
             var pageOperation = model.Operation.ToPageOperation();
