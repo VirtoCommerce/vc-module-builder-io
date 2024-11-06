@@ -41,6 +41,7 @@ public class BuilderIOPage
     public virtual PageDocument ToPageDocument()
     {
         var pageDocument = AbstractTypeFactory<PageDocument>.TryCreateInstance();
+        // pageDocument.Content = JsonConvert.SerializeObject(this);
         pageDocument.Content = GetDataProperty("blocksString");
         pageDocument.CreatedBy = CreatedBy;
         pageDocument.CreatedDate = CreatedDate;
