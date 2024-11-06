@@ -41,7 +41,6 @@ public class BuilderIOPage
     public virtual PageDocument ToPageDocument()
     {
         var pageDocument = AbstractTypeFactory<PageDocument>.TryCreateInstance();
-        // pageDocument.Content = JsonConvert.SerializeObject(this);
         pageDocument.Content = GetDataProperty("blocksString");
         pageDocument.CreatedBy = CreatedBy;
         pageDocument.CreatedDate = CreatedDate;
@@ -61,7 +60,6 @@ public class BuilderIOPage
         pageDocument.Visibility = PageDocumentVisibility.Public;
         pageDocument.StartDate = StartDate;
         pageDocument.EndDate = EndDate == DateTime.MinValue ? DateTime.MaxValue : EndDate;
-        // pageDocument.UserGroups =
         return pageDocument;
     }
 
