@@ -34,7 +34,7 @@ public class BuilderIOPage
     public string ModelId { get; set; }
     public string Name { get; set; }
     public string OwnerId { get; set; }
-    public int Priority { get; set; }
+    public float Priority { get; set; }
     public string Published { get; set; }
     public PageQuery[] Query { get; set; }
 
