@@ -57,7 +57,9 @@ public class BuilderIOPage
         pageDocument.ModifiedBy = LastUpdatedBy;
         pageDocument.ModifiedDate = LastUpdated;
         pageDocument.Source = "builder.io";
-        pageDocument.Visibility = PageDocumentVisibility.Public;
+        pageDocument.Visibility = GetQueryProperty("visibility") == "private"
+            ? PageDocumentVisibility.Private
+            : PageDocumentVisibility.Public;
         pageDocument.StartDate = StartDate;
         pageDocument.EndDate = EndDate == DateTime.MinValue ? DateTime.MaxValue : EndDate;
         return pageDocument;
