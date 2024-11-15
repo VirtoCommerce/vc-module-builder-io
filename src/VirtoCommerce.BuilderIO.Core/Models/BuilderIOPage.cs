@@ -57,7 +57,7 @@ public class BuilderIOPage
         pageDocument.ModifiedBy = LastUpdatedBy;
         pageDocument.ModifiedDate = LastUpdated;
         pageDocument.Source = "builder.io";
-        pageDocument.Visibility = GetQueryProperty("visibility") == "private"
+        pageDocument.Visibility = string.Equals(GetQueryProperty("isAuthenticated"), "true", StringComparison.InvariantCultureIgnoreCase)
             ? PageDocumentVisibility.Private
             : PageDocumentVisibility.Public;
         pageDocument.StartDate = StartDate;
