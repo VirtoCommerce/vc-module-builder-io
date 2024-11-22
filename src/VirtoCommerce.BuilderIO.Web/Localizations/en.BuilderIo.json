@@ -2,12 +2,12 @@
   "settings": {
     "BuilderIO": {
       "Enable": {
-        "title": "Enable",
-        "description": "Activating Builder.io for the Store"
+        "title": "Builder.io activation",
+        "description": "Enable/ disable Builder.io for the store"
       },
       "PublicApiKey": {
         "title": "Public API Key",
-        "description": "Builder Public API Key to integrate with Builder"
+        "description": "Builder Public API Key to integrate with Builder.io"
       }
     }
   }

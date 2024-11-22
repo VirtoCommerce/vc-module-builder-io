@@ -1,0 +1,14 @@
+{
+  "settings": {
+    "BuilderIO": {
+      "Enable": {
+        "title": "启用Builder.io",
+        "description": "为商店启用/禁用Builder.io"
+      },
+      "PublicApiKey": {
+        "title": "公共API密钥",
+        "description": "用于与Builder.io集成的Builder公共API密钥"
+      }
+    }
+  }
+}
