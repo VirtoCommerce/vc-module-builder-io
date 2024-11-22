@@ -1,0 +1,14 @@
+{
+  "settings": {
+    "BuilderIO": {
+      "Enable": {
+        "title": "Builder.ioの有効化",
+        "description": "ストアでBuilder.ioを有効化/無効化"
+      },
+      "PublicApiKey": {
+        "title": "公開APIキー",
+        "description": "Builder.ioとの統合のためのBuilder公開APIキー"
+      }
+    }
+  }
+}
