@@ -1,0 +1,14 @@
+{
+  "settings": {
+    "BuilderIO": {
+      "Enable": {
+        "title": "Activación de Builder.io",
+        "description": "Habilitar/deshabilitar Builder.io para la tienda"
+      },
+      "PublicApiKey": {
+        "title": "Clave API pública",
+        "description": "Clave API pública de Builder para integrar con Builder.io"
+      }
+    }
+  }
+}

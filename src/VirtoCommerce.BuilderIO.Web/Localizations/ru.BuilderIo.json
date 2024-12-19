@@ -1,0 +1,14 @@
+{
+  "settings": {
+    "BuilderIO": {
+      "Enable": {
+        "title": "Активация Builder.io",
+        "description": "Включить/выключить Builder.io для магазина"
+      },
+      "PublicApiKey": {
+        "title": "Публичный API-ключ",
+        "description": "Публичный API-ключ Builder для интеграции с Builder.io"
+      }
+    }
+  }
+}
