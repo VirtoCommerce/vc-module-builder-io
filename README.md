@@ -1,4 +1,4 @@
-# Integration with Builder.io
+# Virto Commerce Builder.io Integration Module
 
 Builder.io module allows you to enable Builder.io and assign Public API Key for a Store and give your developers
 and marketers the toolkit to transform page designs into optimized web and mobile experiences.
@@ -18,8 +18,8 @@ and marketers the toolkit to transform page designs into optimized web and mobil
 1. [Create and сonfigure Builder.io account](https://www.builder.io/)
 1. Go to a Store Settings, select Settings and activate Builder.io and enter your Public API Key.
 
-## Integration with Virto Storefront
-Virto Storefront and Vue B2B Theme has native integration with Builder.io module. 
+## Integration with Virto Frontend
+Virto Frontend and Vue B2B Theme has native integration with Builder.io module. 
 Once you click Save for Store Settings, the Builder.io tracking will be activated.
 
 
@@ -29,11 +29,22 @@ The module adds `Builder.io` link into Application menu. It redirects to Builder
 ![image](https://github.com/VirtoCommerce/vc-module-builder-io/assets/7639413/88565cf4-bcfc-451a-a555-301e98e73d2c)
 
 
-## References
+## Documentation
+
 * [Builder.io](https://www.builder.io)
-* Home: https://virtocommerce.com
-* Community: https://www.virtocommerce.org
-* [Download Latest Release](https://github.com/VirtoCommerce/vc-module-builder-io/releases/latest)
+* [Builder.io module user documentation](https://docs.virtocommerce.org/platform/user-guide/integrations/builder-io/overview/)
+* [REST API](https://virtostart-demo-admin.govirto.com/docs/index.html?urls.primaryName=VirtoCommerce.BuilderIO)
+* [View on GitHub](https://github.com/VirtoCommerce/vc-module-builder-io)
+
+
+## References
+
+* [Deployment](https://docs.virtocommerce.org/platform/developer-guide/Tutorials-and-How-tos/Tutorials/deploy-module-from-source-code/)
+* [Installation](https://docs.virtocommerce.org/platform/user-guide/modules-installation/)
+* [Home](https://virtocommerce.com)
+* [Community](https://www.virtocommerce.org)
+* [Download latest release](https://github.com/VirtoCommerce/vc-module-builder-io/releases/latest)
+
 
 ## License
 Copyright (c) Virto Solutions LTD.  All rights reserved.
