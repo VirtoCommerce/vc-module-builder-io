@@ -51,6 +51,7 @@ public class BuilderIOPage
             ?.Split(',', StringSplitOptions.RemoveEmptyEntries)
             .Select(x => x.Trim())
             .ToArray();
+        pageDocument.OrganizationId = GetQueryProperty("organizationId") ?? GetDataProperty("organizationId");
         pageDocument.Title = GetDataProperty("title");
         pageDocument.Description = GetDataProperty("description");
         pageDocument.MimeType = "application/json";
