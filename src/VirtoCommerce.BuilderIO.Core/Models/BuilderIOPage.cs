@@ -47,6 +47,7 @@ public class BuilderIOPage
         pageDocument.Id = Id;
         pageDocument.OuterId = Id;
         pageDocument.Permalink = GetQueryProperty("urlPath");
+        pageDocument.CultureName = GetQueryProperty("locale");
         pageDocument.UserGroups = GetQueryProperty("groupName")
             ?.Split(',', StringSplitOptions.RemoveEmptyEntries)
             .Select(x => x.Trim())
@@ -73,8 +74,15 @@ public class BuilderIOPage
 
     private string GetQueryProperty(string propertyName, string operatorName = "is")
     {
-        return Query
-            ?.FirstOrDefault(x => x.Property == propertyName && x.Operator == operatorName)?.Value;
+        var result = Query
+            ?.FirstOrDefault(x => x.Property == propertyName && x.Operator == operatorName);
+
+        if (result?.Value.Type == Newtonsoft.Json.Linq.JTokenType.Array)
+        {
+            return result?.Value[0]?.ToString();
+        }
+
+        return result?.Value.ToString();
     }
 }
 
