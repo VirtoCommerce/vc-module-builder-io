@@ -39,7 +39,10 @@ public class PagesBuilderIOController(IEventPublisher eventPublisher) : Controll
                 var pageDocument = (model.NewValue ?? model.PreviousValue).ToPageDocument();
                 pageDocument.Status = pageOperation.GetPageDocumentStatus();
                 pageDocument.StoreId = storeId;
-                pageDocument.CultureName = cultureName;
+                if (pageDocument.CultureName.IsNullOrEmpty())
+                {
+                    pageDocument.CultureName = cultureName;
+                }
 
                 var pageChangedEvent = AbstractTypeFactory<PagesDomainEvent>.TryCreateInstance();
                 pageChangedEvent.Operation = pageOperation;
