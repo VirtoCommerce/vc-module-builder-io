@@ -77,12 +77,12 @@ public class BuilderIOPage
         var result = Query
             ?.FirstOrDefault(x => x.Property == propertyName && x.Operator == operatorName);
 
-        if (result?.Value.Type == Newtonsoft.Json.Linq.JTokenType.Array)
+        if (result?.Value?.Type == Newtonsoft.Json.Linq.JTokenType.Array)
         {
-            return result?.Value[0]?.ToString();
+            return result.Value.Any() ? result.Value[0]?.ToString() : null;
         }
 
-        return result?.Value.ToString();
+        return result?.Value?.ToString();
     }
 }
 
