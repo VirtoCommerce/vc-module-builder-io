@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace VirtoCommerce.BuilderIO.Core.Models;
 
@@ -14,5 +15,5 @@ public class PageQuery
     public string Type { get; set; }
     public string Operator { get; set; }
     public string Property { get; set; }
-    public string Value { get; set; }
+    public JToken Value { get; set; }
 }
