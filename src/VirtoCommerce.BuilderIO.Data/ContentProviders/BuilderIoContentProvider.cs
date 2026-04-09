@@ -28,9 +28,15 @@ public class BuilderIoContentProvider(
     public async Task<long> GetTotalChangesCountAsync(DateTime? startDate, DateTime? endDate)
     {
         long totalCount = 0;
+        var processedApiKeys = new HashSet<string>();
 
-        await ForEachStoreAsync(async apiKey =>
+        await ForEachStoreAsync(async (apiKey, _) =>
         {
+            if (!processedApiKeys.Add(apiKey))
+            {
+                return;
+            }
+
             var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: 0, offset: 0, updatedAfter: startDate);
             totalCount += response.TotalCount;
         });
@@ -41,9 +47,15 @@ public class BuilderIoContentProvider(
     public async Task<IList<IndexDocumentChange>> GetChangesAsync(DateTime? startDate, DateTime? endDate, long skip, long take)
     {
         var allChanges = new List<IndexDocumentChange>();
+        var processedApiKeys = new HashSet<string>();
 
-        await ForEachStoreAsync(async apiKey =>
+        await ForEachStoreAsync(async (apiKey, _) =>
         {
+            if (!processedApiKeys.Add(apiKey))
+            {
+                return;
+            }
+
             var offset = 0;
             while (true)
             {
@@ -77,9 +89,15 @@ public class BuilderIoContentProvider(
     public async Task<IList<PageDocument>> GetByIdsAsync(IList<string> ids)
     {
         var result = new List<PageDocument>();
+        var processedApiKeys = new HashSet<string>();
 
         await ForEachStoreAsync(async (apiKey, storeId) =>
         {
+            if (!processedApiKeys.Add(apiKey))
+            {
+                return;
+            }
+
             var response = await apiClient.GetContentByIdsAsync(apiKey, ModuleConstants.PageModelName, ids);
 
             foreach (var page in response.Results)
@@ -94,11 +112,6 @@ public class BuilderIoContentProvider(
         });
 
         return result;
-    }
-
-    private async Task ForEachStoreAsync(Func<string, Task> action)
-    {
-        await ForEachStoreAsync(async (apiKey, _) => await action(apiKey));
     }
 
     private async Task ForEachStoreAsync(Func<string, string, Task> action)
