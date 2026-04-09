@@ -107,10 +107,10 @@ public class BuilderIoContentProvider(
             return;
         }
 
-        foreach (var storeId in stores.Select(x => x.StoreId))
+        foreach (var storeId in stores.Select(x => x.Id))
         {
             var enabledSetting = await settingsManager.GetObjectSettingAsync(ModuleConstants.Settings.General.Enable.Name, "Store", storeId);
-            if (enabledSetting?.Value is not true)
+            if (enabledSetting?.Value is not bool enabled || !enabled)
             {
                 continue;
             }
