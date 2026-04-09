@@ -28,7 +28,7 @@ public class BuilderIoApiClient(IHttpClientFactory httpClientFactory) : IBuilder
             $"apiKey={Uri.EscapeDataString(apiKey)}",
             $"limit={Math.Min(limit, MaxLimit)}",
             $"offset={offset}",
-            "totalCount=true",
+            "fetchTotalCount=true",
             "noTargeting=true",
             "sort.lastUpdated=-1",
         };

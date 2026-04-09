@@ -6,15 +6,17 @@ using VirtoCommerce.BuilderIO.Core;
 using VirtoCommerce.BuilderIO.Core.Services;
 using VirtoCommerce.Pages.Core.ContentProviders;
 using VirtoCommerce.Pages.Core.Models;
+using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.Platform.Core.Settings;
 using VirtoCommerce.SearchModule.Core.Model;
+using VirtoCommerce.StoreModule.Core.Model.Search;
 using VirtoCommerce.StoreModule.Core.Services;
 
 namespace VirtoCommerce.BuilderIO.Data.ContentProviders;
 
 public class BuilderIoContentProvider(
     IBuilderIoApiClient apiClient,
-    IStoreService storeService,
+    IStoreSearchService storeSearchService,
     ISettingsManager settingsManager)
     : IPageContentProvider
 {
@@ -101,13 +103,11 @@ public class BuilderIoContentProvider(
 
     private async Task ForEachStoreAsync(Func<string, string, Task> action)
     {
-        var stores = await storeService.GetAsync([], null, clone: false);
-        if (stores == null)
-        {
-            return;
-        }
+        var criteria = AbstractTypeFactory<StoreSearchCriteria>.TryCreateInstance();
+        criteria.Take = 50;
+        var storesResult = await storeSearchService.SearchAsync(criteria);
 
-        foreach (var storeId in stores.Select(x => x.Id))
+        foreach (var storeId in storesResult.Results.Select(x => x.Id))
         {
             var enabledSetting = await settingsManager.GetObjectSettingAsync(ModuleConstants.Settings.General.Enable.Name, "Store", storeId);
             if (enabledSetting?.Value is not bool enabled || !enabled)
