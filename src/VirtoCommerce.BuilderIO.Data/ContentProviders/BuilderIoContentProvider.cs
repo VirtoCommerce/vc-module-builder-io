@@ -83,7 +83,10 @@ public class BuilderIoContentProvider(
             foreach (var page in response.Results)
             {
                 var pageDocument = page.ToPageDocument();
-                pageDocument.StoreId = storeId;
+                if (string.IsNullOrEmpty(pageDocument.StoreId))
+                {
+                    pageDocument.StoreId = storeId;
+                }
                 result.Add(pageDocument);
             }
         });
@@ -104,21 +107,22 @@ public class BuilderIoContentProvider(
             return;
         }
 
-        foreach (var store in stores)
+        foreach (var storeId in stores.Select(x => x.StoreId))
         {
-            var enabled = await settingsManager.GetValueAsync<bool>(ModuleConstants.Settings.General.Enable, store.Id);
-            if (!enabled)
+            var enabledSetting = await settingsManager.GetObjectSettingAsync(ModuleConstants.Settings.General.Enable.Name, "Store", storeId);
+            if (enabledSetting?.Value is not true)
             {
                 continue;
             }
 
-            var apiKey = await settingsManager.GetValueAsync<string>(ModuleConstants.Settings.General.PublicApiKey, store.Id);
+            var apiKeySetting = await settingsManager.GetObjectSettingAsync(ModuleConstants.Settings.General.PublicApiKey.Name, "Store", storeId);
+            var apiKey = apiKeySetting?.Value as string;
             if (string.IsNullOrEmpty(apiKey))
             {
                 continue;
             }
 
-            await action(apiKey, store.Id);
+            await action(apiKey, storeId);
         }
     }
 }
