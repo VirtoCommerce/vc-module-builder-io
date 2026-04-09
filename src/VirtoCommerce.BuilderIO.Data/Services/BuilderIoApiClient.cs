@@ -36,13 +36,13 @@ public class BuilderIoApiClient(IHttpClientFactory httpClientFactory) : IBuilder
 
         if (updatedAfter.HasValue)
         {
-            var unixMs = new DateTimeOffset(updatedAfter.Value).ToUnixTimeMilliseconds();
+            var unixMs = new DateTimeOffset(updatedAfter.Value, TimeSpan.Zero).ToUnixTimeMilliseconds();
             queryParams.Add($"query.lastUpdated.$gte={unixMs}");
         }
 
         if (updatedBefore.HasValue)
         {
-            var unixMs = new DateTimeOffset(updatedBefore.Value).ToUnixTimeMilliseconds();
+            var unixMs = new DateTimeOffset(updatedBefore.Value, TimeSpan.Zero).ToUnixTimeMilliseconds();
             queryParams.Add($"query.lastUpdated.$lte={unixMs}");
         }
 
