@@ -106,13 +106,13 @@ public class BuilderIoContentProvider(
 
         foreach (var store in stores)
         {
-            var enabled = await settingsManager.GetValueAsync<bool>(ModuleConstants.Settings.General.Enable);
+            var enabled = await settingsManager.GetValueAsync<bool>(ModuleConstants.Settings.General.Enable, store.Id);
             if (!enabled)
             {
                 continue;
             }
 
-            var apiKey = await settingsManager.GetValueAsync<string>(ModuleConstants.Settings.General.PublicApiKey);
+            var apiKey = await settingsManager.GetValueAsync<string>(ModuleConstants.Settings.General.PublicApiKey, store.Id);
             if (string.IsNullOrEmpty(apiKey))
             {
                 continue;

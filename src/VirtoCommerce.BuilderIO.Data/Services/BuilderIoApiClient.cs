@@ -53,8 +53,7 @@ public class BuilderIoApiClient(IHttpClientFactory httpClientFactory) : IBuilder
         string modelName,
         IList<string> ids)
     {
-        // Builder.io supports querying by ID using query.id.$in
-        var response = new BuilderIoContentResponse();
+        var allResults = new List<BuilderIOPage>();
 
         // Process in chunks of MaxLimit
         foreach (var chunk in ids.Chunk(MaxLimit))
@@ -70,11 +69,14 @@ public class BuilderIoApiClient(IHttpClientFactory httpClientFactory) : IBuilder
 
             var url = $"{BaseUrl}/{Uri.EscapeDataString(modelName)}?{string.Join("&", queryParams)}";
             var chunkResponse = await FetchAsync(url);
-            response.Results = response.Results.Concat(chunkResponse.Results).ToList();
-            response.TotalCount += chunkResponse.TotalCount;
+            allResults.AddRange(chunkResponse.Results);
         }
 
-        return response;
+        return new BuilderIoContentResponse
+        {
+            Results = allResults,
+            TotalCount = allResults.Count,
+        };
     }
 
     private async Task<BuilderIoContentResponse> FetchAsync(string url)

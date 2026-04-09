@@ -5,7 +5,7 @@ and marketers the toolkit to transform page designs into optimized web and mobil
 
 ## Key Features
 1. Store Configuration.
-1. Integarted with Virto Storefront.
+1. Integrated with Virto Storefront.
 1. Ready for integration with other sales channels.
 1. Application menu.
 
@@ -19,12 +19,12 @@ and marketers the toolkit to transform page designs into optimized web and mobil
 1. Go to a Store Settings, select Settings and activate Builder.io and enter your Public API Key.
 
 ## Integration with Virto Frontend
-Virto Frontend and Vue B2B Theme has native integration with Builder.io module. 
+Virto Frontend and Vue B2B Theme has native integration with Builder.io module.
 Once you click Save for Store Settings, the Builder.io tracking will be activated.
 
 
-## Application Menu 
-The module adds `Builder.io` link into Application menu. It redirects to Builder.io dashboard. 
+## Application Menu
+The module adds `Builder.io` link into Application menu. It redirects to Builder.io dashboard.
 
 ![image](https://github.com/VirtoCommerce/vc-module-builder-io/assets/7639413/88565cf4-bcfc-451a-a555-301e98e73d2c)
 
