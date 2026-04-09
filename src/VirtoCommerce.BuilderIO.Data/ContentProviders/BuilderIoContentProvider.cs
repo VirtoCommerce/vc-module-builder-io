@@ -103,26 +103,37 @@ public class BuilderIoContentProvider(
 
     private async Task ForEachStoreAsync(Func<string, string, Task> action)
     {
+        const int storeBatchSize = 50;
         var criteria = AbstractTypeFactory<StoreSearchCriteria>.TryCreateInstance();
-        criteria.Take = 50;
-        var storesResult = await storeSearchService.SearchAsync(criteria);
+        criteria.Take = storeBatchSize;
+        criteria.Skip = 0;
 
-        foreach (var storeId in storesResult.Results.Select(x => x.Id))
+        int totalStores;
+        do
         {
-            var enabledSetting = await settingsManager.GetObjectSettingAsync(ModuleConstants.Settings.General.Enable.Name, "Store", storeId);
-            if (enabledSetting?.Value is not bool enabled || !enabled)
+            var storesResult = await storeSearchService.SearchAsync(criteria);
+            totalStores = storesResult.TotalCount;
+
+            foreach (var storeId in storesResult.Results.Select(x => x.Id))
             {
-                continue;
+                var enabledSetting = await settingsManager.GetObjectSettingAsync(ModuleConstants.Settings.General.Enable.Name, "Store", storeId);
+                if (enabledSetting?.Value is not bool enabled || !enabled)
+                {
+                    continue;
+                }
+
+                var apiKeySetting = await settingsManager.GetObjectSettingAsync(ModuleConstants.Settings.General.PublicApiKey.Name, "Store", storeId);
+                var apiKey = apiKeySetting?.Value as string;
+                if (string.IsNullOrEmpty(apiKey))
+                {
+                    continue;
+                }
+
+                await action(apiKey, storeId);
             }
 
-            var apiKeySetting = await settingsManager.GetObjectSettingAsync(ModuleConstants.Settings.General.PublicApiKey.Name, "Store", storeId);
-            var apiKey = apiKeySetting?.Value as string;
-            if (string.IsNullOrEmpty(apiKey))
-            {
-                continue;
-            }
-
-            await action(apiKey, storeId);
+            criteria.Skip += storeBatchSize;
         }
+        while (criteria.Skip < totalStores);
     }
 }
