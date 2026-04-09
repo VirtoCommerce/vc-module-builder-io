@@ -46,6 +46,7 @@ public class BuilderIOPage
         pageDocument.CreatedDate = CreatedDate;
         pageDocument.Id = Id;
         pageDocument.OuterId = Id;
+        pageDocument.StoreId = GetQueryProperty("storeId");
         pageDocument.Permalink = GetQueryProperty("urlPath");
         pageDocument.CultureName = GetQueryProperty("locale");
         pageDocument.UserGroups = GetQueryPropertyArray("groupName") ?? GetQueryProperty("groupName")

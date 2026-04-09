@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VirtoCommerce.BuilderIO.Core;
+using VirtoCommerce.BuilderIO.Core.Services;
+using VirtoCommerce.BuilderIO.Data.ContentProviders;
+using VirtoCommerce.BuilderIO.Data.Services;
+using VirtoCommerce.Pages.Core.ContentProviders;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.Security;
 using VirtoCommerce.Platform.Core.Settings;
@@ -16,6 +20,9 @@ public class Module : IModule, IHasConfiguration
 
     public void Initialize(IServiceCollection serviceCollection)
     {
+        serviceCollection.AddHttpClient("BuilderIo");
+        serviceCollection.AddTransient<IBuilderIoApiClient, BuilderIoApiClient>();
+        serviceCollection.AddTransient<BuilderIoContentProvider>();
     }
 
     public void PostInitialize(IApplicationBuilder appBuilder)
@@ -32,6 +39,10 @@ public class Module : IModule, IHasConfiguration
         // Register permissions
         var permissionsRegistrar = serviceProvider.GetRequiredService<IPermissionsRegistrar>();
         permissionsRegistrar.RegisterPermissions(ModuleInfo.Id, "BuilderIO", ModuleConstants.Security.Permissions.AllPermissions);
+
+        // Register content provider for Pages module
+        var contentProviderRegistrar = serviceProvider.GetService<IPageContentProviderRegistrar>();
+        contentProviderRegistrar?.RegisterProvider(() => serviceProvider.GetRequiredService<BuilderIoContentProvider>());
     }
 
     public void Uninstall()

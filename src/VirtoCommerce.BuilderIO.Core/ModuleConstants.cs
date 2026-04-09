@@ -5,6 +5,8 @@ namespace VirtoCommerce.BuilderIO.Core;
 
 public static class ModuleConstants
 {
+    public const string PageModelName = "page";
+
     public static class Security
     {
         public static class Permissions

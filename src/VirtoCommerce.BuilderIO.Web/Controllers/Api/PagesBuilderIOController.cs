@@ -26,7 +26,7 @@ public class PagesBuilderIOController(IEventPublisher eventPublisher) : Controll
         {
             var model = body.ToObject<BuilderIOPageChanges>();
 
-            if (model?.ModelName == "page")
+            if (model?.ModelName == ModuleConstants.PageModelName)
             {
                 var pageOperation = model.Operation.ToPageOperation();
                 if ((pageOperation == PageOperation.Delete &&
@@ -38,7 +38,10 @@ public class PagesBuilderIOController(IEventPublisher eventPublisher) : Controll
 
                 var pageDocument = (model.NewValue ?? model.PreviousValue).ToPageDocument();
                 pageDocument.Status = pageOperation.GetPageDocumentStatus();
-                pageDocument.StoreId = storeId;
+                if (pageDocument.StoreId.IsNullOrEmpty())
+                {
+                    pageDocument.StoreId = storeId;
+                }
                 if (pageDocument.CultureName.IsNullOrEmpty())
                 {
                     pageDocument.CultureName = cultureName;
