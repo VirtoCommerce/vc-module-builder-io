@@ -37,7 +37,7 @@ public class BuilderIoContentProvider(
                 return;
             }
 
-            var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: 0, offset: 0, updatedAfter: startDate);
+            var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: 0, offset: 0, updatedAfter: startDate, updatedBefore: endDate);
             totalCount += response.TotalCount;
         });
 
@@ -59,7 +59,7 @@ public class BuilderIoContentProvider(
             var offset = 0;
             while (true)
             {
-                var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: PageSize, offset: offset, updatedAfter: startDate);
+                var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: PageSize, offset: offset, updatedAfter: startDate, updatedBefore: endDate);
 
                 foreach (var page in response.Results)
                 {

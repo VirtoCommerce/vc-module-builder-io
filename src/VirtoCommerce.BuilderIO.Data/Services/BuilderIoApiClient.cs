@@ -21,6 +21,7 @@ public class BuilderIoApiClient(IHttpClientFactory httpClientFactory) : IBuilder
         int limit,
         int offset,
         DateTime? updatedAfter = null,
+        DateTime? updatedBefore = null,
         bool includeUnpublished = false)
     {
         var queryParams = new List<string>
@@ -37,6 +38,12 @@ public class BuilderIoApiClient(IHttpClientFactory httpClientFactory) : IBuilder
         {
             var unixMs = new DateTimeOffset(updatedAfter.Value).ToUnixTimeMilliseconds();
             queryParams.Add($"query.lastUpdated.$gte={unixMs}");
+        }
+
+        if (updatedBefore.HasValue)
+        {
+            var unixMs = new DateTimeOffset(updatedBefore.Value).ToUnixTimeMilliseconds();
+            queryParams.Add($"query.lastUpdated.$lte={unixMs}");
         }
 
         if (includeUnpublished)

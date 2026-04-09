@@ -7,7 +7,7 @@ namespace VirtoCommerce.BuilderIO.Core.Services;
 
 public interface IBuilderIoApiClient
 {
-    Task<BuilderIoContentResponse> GetContentAsync(string apiKey, string modelName, int limit, int offset, DateTime? updatedAfter = null, bool includeUnpublished = false);
+    Task<BuilderIoContentResponse> GetContentAsync(string apiKey, string modelName, int limit, int offset, DateTime? updatedAfter = null, DateTime? updatedBefore = null, bool includeUnpublished = false);
     Task<BuilderIoContentResponse> GetContentByIdsAsync(string apiKey, string modelName, IList<string> ids);
 }
 
