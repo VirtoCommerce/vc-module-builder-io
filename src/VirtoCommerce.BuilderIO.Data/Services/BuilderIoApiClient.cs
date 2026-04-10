@@ -71,6 +71,7 @@ public class BuilderIoApiClient(IHttpClientFactory httpClientFactory) : IBuilder
                 $"apiKey={Uri.EscapeDataString(apiKey)}",
                 $"limit={chunk.Length}",
                 "noTargeting=true",
+                "includeUnpublished=true",
                 $"query.id.$in={Uri.EscapeDataString(idsJson)}",
             };
 
