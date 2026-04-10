@@ -37,7 +37,7 @@ public class BuilderIoContentProvider(
                 return;
             }
 
-            var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: 0, offset: 0, updatedAfter: startDate, updatedBefore: endDate);
+            var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: 0, offset: 0, updatedAfter: startDate, updatedBefore: endDate, includeUnpublished: true);
             totalCount += response.TotalCount;
         });
 
@@ -59,7 +59,7 @@ public class BuilderIoContentProvider(
             var offset = 0;
             while (true)
             {
-                var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: PageSize, offset: offset, updatedAfter: startDate, updatedBefore: endDate);
+                var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: PageSize, offset: offset, updatedAfter: startDate, updatedBefore: endDate, includeUnpublished: true);
 
                 foreach (var page in response.Results)
                 {
@@ -103,6 +103,8 @@ public class BuilderIoContentProvider(
             foreach (var page in response.Results)
             {
                 var pageDocument = page.ToPageDocument();
+                pageDocument.Status = MapStatus(page.Published);
+
                 if (string.IsNullOrEmpty(pageDocument.StoreId))
                 {
                     pageDocument.StoreId = storeId;
@@ -112,6 +114,16 @@ public class BuilderIoContentProvider(
         });
 
         return result;
+    }
+
+    private static PageDocumentStatus MapStatus(string published)
+    {
+        return published?.ToLowerInvariant() switch
+        {
+            "published" => PageDocumentStatus.Published,
+            "archived" => PageDocumentStatus.Archived,
+            _ => PageDocumentStatus.Draft,
+        };
     }
 
     private async Task ForEachStoreAsync(Func<string, string, Task> action)
