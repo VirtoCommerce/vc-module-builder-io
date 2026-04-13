@@ -25,26 +25,7 @@ public class BuilderIoContentProvider(
     public string ProviderName => "Builder.io";
     public bool SupportsReindexation => true;
 
-    public async Task<long> GetTotalChangesCountAsync(DateTime? startDate, DateTime? endDate)
-    {
-        long totalCount = 0;
-        var processedApiKeys = new HashSet<string>();
-
-        await ForEachStoreAsync(async (apiKey, _) =>
-        {
-            if (!processedApiKeys.Add(apiKey))
-            {
-                return;
-            }
-
-            var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: 0, offset: 0, updatedAfter: startDate, updatedBefore: endDate, includeUnpublished: true);
-            totalCount += response.TotalCount;
-        });
-
-        return totalCount;
-    }
-
-    public async Task<IList<IndexDocumentChange>> GetChangesAsync(DateTime? startDate, DateTime? endDate, long skip, long take)
+    public async Task<PageChangesSearchResult> SearchChangesAsync(PageChangesSearchCriteria criteria)
     {
         var allChanges = new List<IndexDocumentChange>();
         var processedApiKeys = new HashSet<string>();
@@ -59,7 +40,7 @@ public class BuilderIoContentProvider(
             var offset = 0;
             while (true)
             {
-                var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: PageSize, offset: offset, updatedAfter: startDate, updatedBefore: endDate, includeUnpublished: true);
+                var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: PageSize, offset: offset, updatedAfter: criteria.StartDate, updatedBefore: criteria.EndDate, includeUnpublished: true);
 
                 foreach (var page in response.Results)
                 {
@@ -79,11 +60,13 @@ public class BuilderIoContentProvider(
             }
         });
 
-        return allChanges
-            .OrderByDescending(x => x.ChangeDate)
-            .Skip(Convert.ToInt32(skip))
-            .Take(Convert.ToInt32(take))
-            .ToList();
+        var ordered = allChanges.OrderByDescending(x => x.ChangeDate).ToList();
+
+        return new PageChangesSearchResult
+        {
+            TotalCount = ordered.Count,
+            Results = ordered.Skip(criteria.Skip).Take(criteria.Take).ToList(),
+        };
     }
 
     public async Task<IList<PageDocument>> GetByIdsAsync(IList<string> ids)

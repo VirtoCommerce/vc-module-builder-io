@@ -22,7 +22,7 @@ public class Module : IModule, IHasConfiguration
     {
         serviceCollection.AddHttpClient("BuilderIo");
         serviceCollection.AddTransient<IBuilderIoApiClient, BuilderIoApiClient>();
-        serviceCollection.AddTransient<BuilderIoContentProvider>();
+        serviceCollection.AddTransient<IPageContentProvider, BuilderIoContentProvider>();
     }
 
     public void PostInitialize(IApplicationBuilder appBuilder)
@@ -40,9 +40,6 @@ public class Module : IModule, IHasConfiguration
         var permissionsRegistrar = serviceProvider.GetRequiredService<IPermissionsRegistrar>();
         permissionsRegistrar.RegisterPermissions(ModuleInfo.Id, "BuilderIO", ModuleConstants.Security.Permissions.AllPermissions);
 
-        // Register content provider for Pages module
-        var contentProviderRegistrar = serviceProvider.GetService<IPageContentProviderRegistrar>();
-        contentProviderRegistrar?.RegisterProvider(() => serviceProvider.GetRequiredService<BuilderIoContentProvider>());
     }
 
     public void Uninstall()
