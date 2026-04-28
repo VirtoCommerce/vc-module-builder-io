@@ -20,17 +20,22 @@ public class UnixMillisecondsJsonConverter : JsonConverter
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        if (reader.TokenType == JsonToken.Integer)
+        if (reader.TokenType == JsonToken.Null)
         {
-            var unixTimeMilliseconds = (long)reader.Value;
+            return objectType == typeof(DateTime?) ? null : default(DateTime);
+        }
+
+        if (reader.TokenType == JsonToken.Integer || reader.TokenType == JsonToken.Float)
+        {
+            var unixTimeMilliseconds = Convert.ToInt64(reader.Value);
             return DateTimeOffset.FromUnixTimeMilliseconds(unixTimeMilliseconds).DateTime;
         }
 
-        throw new JsonSerializationException("Expected integer milliseconds value.");
+        throw new JsonSerializationException($"Expected integer milliseconds value, got {reader.TokenType}.");
     }
 
     public override bool CanConvert(Type objectType)
     {
-        return objectType == typeof(DateTime);
+        return objectType == typeof(DateTime) || objectType == typeof(DateTime?);
     }
 }

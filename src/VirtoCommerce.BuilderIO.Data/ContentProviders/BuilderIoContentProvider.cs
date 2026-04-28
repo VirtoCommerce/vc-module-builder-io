@@ -1,0 +1,147 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using VirtoCommerce.BuilderIO.Core;
+using VirtoCommerce.BuilderIO.Core.Services;
+using VirtoCommerce.Pages.Core.ContentProviders;
+using VirtoCommerce.Pages.Core.Models;
+using VirtoCommerce.Platform.Core.Common;
+using VirtoCommerce.Platform.Core.Settings;
+using VirtoCommerce.SearchModule.Core.Model;
+using VirtoCommerce.StoreModule.Core.Model.Search;
+using VirtoCommerce.StoreModule.Core.Services;
+
+namespace VirtoCommerce.BuilderIO.Data.ContentProviders;
+
+public class BuilderIoContentProvider(
+    IBuilderIoApiClient apiClient,
+    IStoreSearchService storeSearchService,
+    ISettingsManager settingsManager)
+    : IPageContentProvider
+{
+    private const int PageSize = 100;
+
+    public string ProviderName => "Builder.io";
+    public bool SupportsReindexation => true;
+
+    public async Task<PageChangesSearchResult> SearchChangesAsync(PageChangesSearchCriteria criteria)
+    {
+        var allChanges = new List<IndexDocumentChange>();
+        var processedApiKeys = new HashSet<string>();
+
+        await ForEachStoreAsync(async (apiKey, _) =>
+        {
+            if (!processedApiKeys.Add(apiKey))
+            {
+                return;
+            }
+
+            var offset = 0;
+            while (true)
+            {
+                var response = await apiClient.GetContentAsync(apiKey, ModuleConstants.PageModelName, limit: PageSize, offset: offset, updatedAfter: criteria.StartDate, updatedBefore: criteria.EndDate, includeUnpublished: true);
+
+                foreach (var page in response.Results)
+                {
+                    allChanges.Add(new IndexDocumentChange
+                    {
+                        DocumentId = page.Id,
+                        ChangeDate = page.LastUpdated ?? page.CreatedDate,
+                        ChangeType = IndexDocumentChangeType.Modified,
+                    });
+                }
+
+                offset += PageSize;
+                if (offset >= response.TotalCount || response.Results.Count == 0)
+                {
+                    break;
+                }
+            }
+        });
+
+        var ordered = allChanges.OrderByDescending(x => x.ChangeDate).ToList();
+
+        return new PageChangesSearchResult
+        {
+            TotalCount = ordered.Count,
+            Results = ordered.Skip(criteria.Skip).Take(criteria.Take).ToList(),
+        };
+    }
+
+    public async Task<IList<PageDocument>> GetByIdsAsync(IList<string> ids)
+    {
+        var result = new List<PageDocument>();
+        var processedApiKeys = new HashSet<string>();
+
+        await ForEachStoreAsync(async (apiKey, storeId) =>
+        {
+            if (!processedApiKeys.Add(apiKey))
+            {
+                return;
+            }
+
+            var response = await apiClient.GetContentByIdsAsync(apiKey, ModuleConstants.PageModelName, ids);
+
+            foreach (var page in response.Results)
+            {
+                var pageDocument = page.ToPageDocument();
+                pageDocument.Status = MapStatus(page.Published);
+
+                if (string.IsNullOrEmpty(pageDocument.StoreId))
+                {
+                    pageDocument.StoreId = storeId;
+                }
+                result.Add(pageDocument);
+            }
+        });
+
+        return result;
+    }
+
+    private static PageDocumentStatus MapStatus(string published)
+    {
+        return published?.ToLowerInvariant() switch
+        {
+            "published" => PageDocumentStatus.Published,
+            "archived" => PageDocumentStatus.Archived,
+            _ => PageDocumentStatus.Draft,
+        };
+    }
+
+    private async Task ForEachStoreAsync(Func<string, string, Task> action)
+    {
+        const int storeBatchSize = 50;
+        var criteria = AbstractTypeFactory<StoreSearchCriteria>.TryCreateInstance();
+        criteria.Take = storeBatchSize;
+        criteria.Skip = 0;
+
+        int totalStores;
+        do
+        {
+            var storesResult = await storeSearchService.SearchAsync(criteria);
+            totalStores = storesResult.TotalCount;
+
+            foreach (var storeId in storesResult.Results.Select(x => x.Id))
+            {
+                var enabledSetting = await settingsManager.GetObjectSettingAsync(ModuleConstants.Settings.General.Enable.Name, "Store", storeId);
+                if (enabledSetting?.Value is not bool enabled || !enabled)
+                {
+                    continue;
+                }
+
+                var apiKeySetting = await settingsManager.GetObjectSettingAsync(ModuleConstants.Settings.General.PublicApiKey.Name, "Store", storeId);
+                var apiKey = apiKeySetting?.Value as string;
+                if (string.IsNullOrEmpty(apiKey))
+                {
+                    continue;
+                }
+
+                await action(apiKey, storeId);
+            }
+
+            criteria.Skip += storeBatchSize;
+        }
+        while (criteria.Skip < totalStores);
+    }
+}

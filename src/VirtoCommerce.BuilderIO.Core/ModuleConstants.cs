@@ -5,6 +5,8 @@ namespace VirtoCommerce.BuilderIO.Core;
 
 public static class ModuleConstants
 {
+    public const string PageModelName = "page";
+
     public static class Security
     {
         public static class Permissions
@@ -31,7 +33,7 @@ public static class ModuleConstants
             public static SettingDescriptor Enable { get; } = new()
             {
                 Name = "BuilderIO.Enable",
-                GroupName = "BuilderIO",
+                GroupName = "CMS|BuilderIO",
                 ValueType = SettingValueType.Boolean,
                 IsPublic = true,
                 DefaultValue = false,
@@ -40,7 +42,7 @@ public static class ModuleConstants
             public static SettingDescriptor PublicApiKey { get; } = new()
             {
                 Name = "BuilderIO.PublicApiKey",
-                GroupName = "BuilderIO",
+                GroupName = "CMS|BuilderIO",
                 ValueType = SettingValueType.ShortText,
                 IsPublic = true,
                 DefaultValue = string.Empty,
