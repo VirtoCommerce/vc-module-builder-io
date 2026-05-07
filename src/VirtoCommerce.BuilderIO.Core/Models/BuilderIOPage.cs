@@ -41,7 +41,7 @@ public class BuilderIOPage
     public virtual PageDocument ToPageDocument()
     {
         var pageDocument = AbstractTypeFactory<PageDocument>.TryCreateInstance();
-        pageDocument.Content = GetDataProperty("blocksString");
+        pageDocument.Content = GetContent();
         pageDocument.CreatedBy = CreatedBy;
         pageDocument.CreatedDate = CreatedDate;
         pageDocument.Id = Id;
@@ -71,6 +71,18 @@ public class BuilderIOPage
     private string GetDataProperty(string propertyName)
     {
         return Data?.GetValueOrDefault(propertyName)?.ToString();
+    }
+
+    private string GetContent()
+    {
+        var blocksString = GetDataProperty("blocksString");
+        if (!string.IsNullOrWhiteSpace(blocksString))
+        {
+            return blocksString;
+        }
+
+        var blocks = Data?.GetValueOrDefault("blocks");
+        return blocks == null ? null : JsonConvert.SerializeObject(blocks);
     }
 
     private string GetQueryProperty(string propertyName, string operatorName = "is")
