@@ -18,7 +18,7 @@
     <app id="builderio">
       <title>Builder.io</title>
       <description>Builder.io Dashboard</description>
-      <iconUrl>/apps/builderio/logo.png</iconUrl>
+      <iconUrl>/apps/builderio/logo.svg</iconUrl>
       <permission>builderio:access</permission>
     </app>
   </apps>
